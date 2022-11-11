@@ -4,7 +4,7 @@ class Post extends Controller
 {
     public function index()
     {
-        echo "i am index methode of post";
+        $this->view("post/index");
     }
     public function edit()
     {
