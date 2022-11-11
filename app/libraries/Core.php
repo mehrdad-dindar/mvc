@@ -6,7 +6,23 @@ class Core{
 
     public function __construct()
     {
-        var_dump( $this->getUrl() );
+        $url = $this->getUrl();
+        // For Controller
+        if (file_exists("../app/controllers/".ucwords($url[0]).".php")){
+            $this->CurrentController = ucwords($url[0]);
+            unset($url[0]);
+        }
+        require_once "../app/controllers/".$this->CurrentController.".php";
+        $this->CurrentController = new $this->CurrentController;
+        // For Methode
+        if (method_exists($this->CurrentController,$url[1])){
+            $this->CurrentMethode = $url[1];
+            unset($url[1]);
+        }
+        // For params
+        $this->params = $url ? array_values($url) : [];
+        // final
+        call_user_func_array([$this->CurrentController,$this->CurrentMethode],$this->params);
     }
 
 
