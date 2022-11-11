@@ -1,6 +1,6 @@
 <?php
 
-class Post
+class Post extends Controller
 {
     public function index()
     {
@@ -8,7 +8,7 @@ class Post
     }
     public function edit()
     {
-        echo "i am edit methode of post";
+        $this->model('posts');
     }
 
     public function calc($param1,$param2,$param3)
